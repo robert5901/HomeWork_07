@@ -30,9 +30,11 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    namespace 'otus.homework.customview'
 }
 
 dependencies {
+    implementation 'com.google.code.gson:gson:2.10.1'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.3.2'

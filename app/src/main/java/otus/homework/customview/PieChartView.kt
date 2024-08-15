@@ -72,15 +72,28 @@ class PieChartView @JvmOverloads constructor(
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val widthMode = MeasureSpec.getMode(widthMeasureSpec)
-        val heightMode = MeasureSpec.getMode(heightMeasureSpec)
         val widthSize = MeasureSpec.getSize(widthMeasureSpec)
+        val heightMode = MeasureSpec.getMode(heightMeasureSpec)
         val heightSize = MeasureSpec.getSize(heightMeasureSpec)
 
-        val width = if (widthMode == MeasureSpec.EXACTLY) widthSize else min(100, widthSize)
-        val height = if (heightMode == MeasureSpec.EXACTLY) heightSize else min(100, heightSize)
+        val desiredWidth = 600
+        val desiredHeight = 600
 
-        val size = min(width, height)
-        setMeasuredDimension(size, size)
+        val width: Int = when (widthMode) {
+            MeasureSpec.EXACTLY -> widthSize
+            MeasureSpec.AT_MOST -> minOf(desiredWidth, widthSize)
+            MeasureSpec.UNSPECIFIED -> desiredWidth
+            else -> desiredWidth
+        }
+
+        val height: Int = when (heightMode) {
+            MeasureSpec.EXACTLY -> heightSize
+            MeasureSpec.AT_MOST -> minOf(desiredHeight, heightSize)
+            MeasureSpec.UNSPECIFIED -> desiredHeight
+            else -> desiredHeight
+        }
+
+        setMeasuredDimension(width, height)
     }
 
     override fun onDraw(canvas: Canvas) {

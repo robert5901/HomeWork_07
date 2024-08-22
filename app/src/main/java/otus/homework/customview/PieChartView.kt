@@ -123,7 +123,7 @@ class PieChartView @JvmOverloads constructor(
         }
 
         // Белый круг в центре
-        paint.color = Color.WHITE
+        paint.color = Color.LTGRAY
         canvas.drawCircle(centerX, centerY, radius * 0.5f, paint)
 
         // Текст выбранной категории под диаграммой

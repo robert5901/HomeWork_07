@@ -49,36 +49,38 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun flipAnimation(fromView: View, toView: View) {
-        val fromViewAnimatorScale = ValueAnimator.ofFloat(1f, 0.5f).apply {
+        val fromViewAnimatorScaleX = ObjectAnimator.ofFloat(toView, View.SCALE_X, 1f, 0.5f).apply {
             duration = 500L
             interpolator = AccelerateDecelerateInterpolator()
-            addUpdateListener {
-                fromView.scaleX = it.animatedValue as Float
-                fromView.scaleY = it.animatedValue as Float
-            }
+        }
+
+        val fromViewAnimatorScaleY = ObjectAnimator.ofFloat(toView, View.SCALE_Y, 1f, 0.5f).apply {
+            duration = 500L
+            interpolator = AccelerateDecelerateInterpolator()
         }
 
         val fromViewAnimatorRotationY =
-            ObjectAnimator.ofFloat(fromView, "rotationY", 0f, 180f).apply {
+            ObjectAnimator.ofFloat(fromView, View.ROTATION_Y, 0f, 180f).apply {
                 duration = 1000L
             }
 
-        val fromViewAnimatorAlpha = ObjectAnimator.ofFloat(fromView, "alpha", 1f, 0f).apply {
+        val fromViewAnimatorAlpha = ObjectAnimator.ofFloat(fromView, View.ALPHA, 1f, 0f).apply {
             startDelay = 500L
             duration = 1L
         }
 
-        val toViewAnimatorScale = ValueAnimator.ofFloat(0f, 1f).apply {
+        val toViewAnimatorScaleX = ObjectAnimator.ofFloat(toView, View.SCALE_X, 0f, 1f).apply {
             duration = 1200L
             interpolator = AccelerateDecelerateInterpolator()
-            addUpdateListener {
-                toView.scaleX = it.animatedValue as Float
-                toView.scaleY = it.animatedValue as Float
-            }
+        }
+
+        val toViewAnimatorScaleY = ObjectAnimator.ofFloat(toView, View.SCALE_Y, 0f, 1f).apply {
+            duration = 1200L
+            interpolator = AccelerateDecelerateInterpolator()
         }
 
         val toViewAnimatorRotationY =
-            ObjectAnimator.ofFloat(toView, "rotationY", -180f, 0f).apply {
+            ObjectAnimator.ofFloat(toView, View.ROTATION_Y, -180f, 0f).apply {
                 duration = 1000L
                 addListener(
                     onStart = {
@@ -91,17 +93,19 @@ class MainActivity : AppCompatActivity() {
                 )
             }
 
-        val toViewAnimatorAlpha = ObjectAnimator.ofFloat(toView, "alpha", 0f, 1f).apply {
+        val toViewAnimatorAlpha = ObjectAnimator.ofFloat(toView, View.ALPHA, 0f, 1f).apply {
             startDelay = 500L
             duration = 1L
         }
 
         val animatorSet = AnimatorSet().apply {
             playTogether(
-                fromViewAnimatorScale,
+                fromViewAnimatorScaleX,
+                fromViewAnimatorScaleY,
                 fromViewAnimatorRotationY,
                 fromViewAnimatorAlpha,
-                toViewAnimatorScale,
+                toViewAnimatorScaleX,
+                toViewAnimatorScaleY,
                 toViewAnimatorRotationY,
                 toViewAnimatorAlpha
             )
